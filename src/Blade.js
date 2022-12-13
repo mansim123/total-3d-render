@@ -14,20 +14,26 @@ export function Blade() {
   var rotationSpeed = { speed: 0.5 };
   gui.add(rotationSpeed, "speed", 0.5, 10);
 
-  useEffect(() => {
-    gltf.scene.scale.set(0.001, 0.001, 0.001);
-    gltf.scene.position.set(0, 2.5, 0);
+  useEffect(
+    (gui) => {
+      gltf.scene.scale.set(0.001, 0.001, 0.001);
+      gltf.scene.position.set(0, 2.5, 0);
 
-    //gui.add(gltf.scene.rotation, "z", 0).name("WindMill Speed");
+      //gui.add(gltf.scene.rotation, "z", 0).name("WindMill Speed");
 
-    gltf.scene.traverse((object) => {
-      if (object instanceof Mesh) {
-        object.castShadow = true;
-        object.receiveShadow = true;
-        object.material.envMapIntensity = 20;
-      }
-    });
-  }, [gltf]);
+      gltf.scene.traverse((object) => {
+        if (object instanceof Mesh) {
+          object.castShadow = true;
+          object.receiveShadow = true;
+          object.material.envMapIntensity = 20;
+        }
+      });
+      return () => {
+        gui.destroy();
+      };
+    },
+    [gltf]
+  );
 
   useFrame((state) => {
     let t = state.clock.getElapsedTime();
