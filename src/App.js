@@ -1,10 +1,14 @@
 import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import "./style.css";
-import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
-import { Groud } from "./Ground";
+import { OrbitControls, PerspectiveCamera, Sky } from "@react-three/drei";
+// import { Groud } from "./Ground";
 import { Neck } from "./Neck";
 import { Blade } from "./Blade";
+// import { TreeReflect } from "./TreeReflect";
+// import { TreeTexture } from "./TreeTexture";
+import Ocean from "./Ocean";
+import { Html, useProgress } from "@react-three/drei";
 
 function WindShow() {
   return (
@@ -15,13 +19,16 @@ function WindShow() {
 
       <Neck />
       <Blade />
+      {/* <TreeReflect />
+      <TreeTexture /> */}
 
       {/* <mesh>
         <boxGeometry args={[1, 1, 1]} />
         <meshBasicMaterial color={"blue"} />
       </mesh> */}
+
       <spotLight
-        color={[1, 0.25, 0.7]}
+        color={[1, 0.4, 1]}
         intensity={3}
         angle={0.6}
         penumbra={0.5}
@@ -31,7 +38,7 @@ function WindShow() {
       />
 
       <spotLight
-        color={[0.14, 0.5, 1]}
+        color={[1, 1, 1]}
         intensity={2}
         angle={0.6}
         penumbra={0.5}
@@ -40,18 +47,25 @@ function WindShow() {
         shadow-bias={-0.0001}
       />
 
-      <Groud />
+      {/* <Groud /> */}
     </>
   );
 }
 
 function App() {
+  function Loader() {
+    const { progress } = useProgress();
+    return <Html center>{progress} % loaded</Html>;
+  }
+
   return (
-    <Suspense fallback={null}>
-      <Canvas shadows>
+    <Canvas shadows>
+      <Suspense fallback={<Loader />}>
         <WindShow />
-      </Canvas>
-    </Suspense>
+        <Sky scale={1000} sunPosition={[500, 150, -1000]} turbidity={0.1} />
+        <Ocean />
+      </Suspense>
+    </Canvas>
   );
 }
 
