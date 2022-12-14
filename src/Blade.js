@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useFrame, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Mesh } from "three";
 import { GUI } from "dat.gui";
-import * as THREE from "three";
 
 export function Blade() {
   const gltf = useLoader(GLTFLoader, process.env.PUBLIC_URL + "models/windmill/wind-blade.gltf");
@@ -14,13 +13,13 @@ export function Blade() {
   gui.add(rotationSpeed, "speed", 0.5, 10);
   //const crimson = new THREE.Color(0xdc143c);
   //const teal = new THREE.Color(0x008080);
-  const steelblue = new THREE.Color(0xcccccc);
+  // const steelblue = new THREE.Color(0xcccccc);
 
-  const [currentColor, setCurrentColor] = useState(steelblue);
+  //const [currentColor, setCurrentColor] = useState(steelblue);
 
   useEffect(
     (gui) => {
-      setCurrentColor(steelblue);
+      //setCurrentColor(steelblue);
       gltf.scene.scale.set(0.001, 0.001, 0.001);
       gltf.scene.position.set(0, 3, 0);
 
@@ -33,7 +32,7 @@ export function Blade() {
           object.receiveShadow = true;
           object.material.envMapIntensity = 20;
           console.log(object.material.color);
-          object.material.color = currentColor;
+          //object.material.color = currentColor;
         }
       });
       return () => {

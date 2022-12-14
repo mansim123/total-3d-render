@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Mesh } from "three";
-import * as THREE from "three";
 
 export function Neck() {
   const gltf = useLoader(GLTFLoader, process.env.PUBLIC_URL + "models/windmill/wind-neck.gltf");
 
-  const crimson = new THREE.Color(0xcccccc);
-  const [currentColor, setCurrentColor] = useState(crimson);
+  //const crimson = new THREE.Color(0xcccccc);
+  //const [currentColor, setCurrentColor] = useState(crimson);
 
   useEffect(() => {
-    setCurrentColor(crimson);
+    //setCurrentColor(crimson);
     gltf.scene.scale.set(0.001, 0.001, 0.001);
     gltf.scene.position.set(0, 3, 0);
     gltf.scene.traverse((object) => {
@@ -19,7 +18,7 @@ export function Neck() {
         object.castShadow = true;
         object.receiveShadow = true;
         object.material.envMapIntensity = 20;
-        object.material.color = currentColor;
+        //object.material.color = currentColor;
       }
     });
   }, [gltf]);
