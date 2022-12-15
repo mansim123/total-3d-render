@@ -12,7 +12,7 @@ export function Neck() {
   useEffect(() => {
     //setCurrentColor(crimson);
     gltf.scene.scale.set(0.001, 0.001, 0.001);
-    gltf.scene.position.set(0, 3, 0);
+    gltf.scene.position.set(0, 2.5, 0);
     gltf.scene.traverse((object) => {
       if (object instanceof Mesh) {
         object.castShadow = true;
